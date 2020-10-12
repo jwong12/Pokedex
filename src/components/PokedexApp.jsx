@@ -1,10 +1,14 @@
 import React from 'react';
+import PokeCards from './PokeCards';
 import { css, cx } from 'emotion';
 import '../stylesheets/PokedexApp.scss';
 
 class PokedexApp extends React.Component {
   constructor(props) {
     super(props);
+    // this.state = {
+    //   cards: []
+    // };
   }
 
   render() {
@@ -14,8 +18,7 @@ class PokedexApp extends React.Component {
           src="./images/pokemon-banner.svg" 
           alt="Pokemon banner"
           className={css`
-          width: 50%;
-          max-width: 550px;
+          width: 450px;
           padding: 20px 0;
         `}/><br/>
         <h1>Pokedex App</h1>
@@ -24,7 +27,8 @@ class PokedexApp extends React.Component {
           <div id="button-wrapper">
             <img src="./images/search.svg" id="search-button" alt="Search icon"/>
           </div>
-        </div>
+        </div><br/>
+        <PokeCards />
       </div>
     );
   }
