@@ -19,7 +19,7 @@ class PokedexApp extends React.Component {
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleSearchClick = this.handleSearchClick.bind(this);
 		this.renderSuggestions = this.renderSuggestions.bind(this);
-        this.closeSuggestions = this.closeSuggestions.bind(this);
+		this.closeSuggestions = this.closeSuggestions.bind(this);
 	}
 
 	componentDidMount() {
@@ -27,9 +27,9 @@ class PokedexApp extends React.Component {
 		document.addEventListener('mousedown', this.closeSuggestions);
 	}
 
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.closeSuggestions);
-    }
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.closeSuggestions);
+	}
 
 	fetchPokemonNames() {
 		const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1050';
@@ -82,12 +82,12 @@ class PokedexApp extends React.Component {
 		const value = e.target.value;
 		let suggestions = [];
         
-        if(value.length > 0) {
-            const regex = new RegExp(`^${value}`, 'i');
+		if(value.length > 0) {
+			const regex = new RegExp(`^${value}`, 'i');
 			suggestions = this.state.pokeNames.sort().filter(v => regex.test(v));
 
 			// The number of random pokemons displayed is set to 10
-            suggestions = suggestions.slice(0,10); 
+			suggestions = suggestions.slice(0,10); 
 		}
 
 		this.setState(() => ({ suggestions, text: value }));
@@ -110,24 +110,24 @@ class PokedexApp extends React.Component {
 	}
 
 	suggestionSelected (value) {
-        this.setState(() => ({ 
-            text: value,
-            suggestions: []
-        }), () => this.handleSearchClick());
+		this.setState(() => ({ 
+			text: value,
+			suggestions: []
+		}), () => this.handleSearchClick());
 	}
 
 	renderSuggestions() {
-        const { suggestions } = this.state;
-        if (suggestions.length === 0) {
-            return null;
-        }
-        return (
-            <ul>
-                {suggestions.map((item) => 
-                    <li key={item} onClick={() => this.suggestionSelected(item)}>{item}</li>
-                )}
-            </ul>
-        );
+		const { suggestions } = this.state;
+		if (suggestions.length === 0) {
+			return null;
+		}
+		return (
+			<ul>
+				{suggestions.map((item) => 
+					<li key={item} onClick={() => this.suggestionSelected(item)}>{item}</li>
+				)}
+			</ul>
+		);
 	}
 	
 	closeSuggestions(event) {
