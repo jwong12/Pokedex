@@ -70,8 +70,12 @@ class PokedexApp extends React.Component {
 			.then((data) => {
 				const pokemonCards = [];
 				pokemonCards.push(data);
-				this.setState({ cards: pokemonCards });
+				this.setState({ 
+					cards: pokemonCards,
+					suggestions: []
+				});
 			})
+			.catch((err) => console.log(err));
 	}
 
 	handleTextChange(e) {
