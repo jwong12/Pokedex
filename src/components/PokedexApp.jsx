@@ -72,7 +72,6 @@ class PokedexApp extends React.Component {
 				pokemonCards.push(data);
 				this.setState({ cards: pokemonCards });
 			})
-			.catch((err) => console.log(err));
 	}
 
 	handleTextChange(e) {
