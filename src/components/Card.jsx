@@ -82,16 +82,21 @@ class Card extends React.Component {
 					</div>
 					<div className="description-item">
 						<span className="left-column">Abilities:</span>
-						<div className="right-column">
-							{this.props.abilities.map((item) => 
-								<p key={item.ability.name}
-									className={css`
-									font-weight: bold; 
-								`}>
-									{item.ability.name.substring(0, 1).toUpperCase() + item.ability.name.substring(1)}
-								</p>
-							)}
-						</div>
+						{this.props.abilities.length > 0 
+							? 	<div className="right-column">
+									{this.props.abilities.map((item) => 
+										<p key={item.ability.name}
+											className={css`
+											font-weight: bold; 
+										`}>
+											{item.ability.name.substring(0, 1).toUpperCase() + item.ability.name.substring(1)}
+										</p>
+									)}
+								</div>
+							: 	<div className="right-column">
+									<p className={css`font-weight: bold;`}>Unknown</p>
+							  	</div>
+						}	
 					</div>
 					<div className="description-item">
 						<span className="left-column">Attack/Defense:</span>
