@@ -8,8 +8,10 @@ class PokedexApp extends React.Component {
 		super(props);
 		this.state = {
 			pokeData: [],
-			cards: []
+			cards: [],
+			text: '',
 		};
+		this.handleTextChange = this.handleTextChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -43,6 +45,11 @@ class PokedexApp extends React.Component {
 			.catch((err) => console.log(err));
 	}
 
+	handleTextChange(e) {
+		const value = e.target.value;
+		this.setState(() => ({ text: value }));
+	}
+
 	render() {
 		return (
 			<div>
@@ -55,7 +62,13 @@ class PokedexApp extends React.Component {
 				`}/><br/>
 				<h1>Pokedex App</h1>
 				<div id="search-wrapper">
-					<input type="text" id="search-bar" placeholder="Search pokemon..."/>
+					<input 
+						type="text" 
+						value={this.state.text}
+						onChange={this.handleTextChange}
+						id="search-bar" 
+						placeholder="Search pokemon..."
+					/>
 					<div id="button-wrapper">
 						<img src="./images/search.svg" id="search-button" alt="Search icon"/>
 					</div>
