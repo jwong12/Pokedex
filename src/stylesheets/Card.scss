@@ -1,0 +1,70 @@
+
+#card-wrapper {
+    width: 280px;
+    min-height: 365px;
+    margin: auto;
+    padding: 10px 5px 5px;    
+    border: 15px solid #f7ce72;
+    box-shadow: 0px 2px 5px 2px #b5b5b5;
+    border-radius: 5px;
+
+    #poke-title {
+        font: bold 18px Arial, sans-serif;
+        color: #505050;
+        padding: 10px 0;
+    }
+
+    #description-wrapper{
+        background-color: #fffcd0;
+        color: #717171;
+        padding: 6px 0;
+        border: 2px solid #dadada;
+        border-radius: 10px;
+        font-size: 14px;
+        
+        .description-item {
+            display: flex; 
+            padding: 1px 0;
+    
+            .left-column {
+                text-align: right;
+                width: 130px;
+                padding-right: 15px;
+            }
+    
+            .right-column {
+                text-align: left; 
+            }
+            
+            .right-column-line {
+                width: 40%;
+            }
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+}
+
+.awssld {
+    padding-top: 5px;
+
+    .awssld__content {
+        background-color: initial;
+
+        img {
+            width: initial;
+            height: initial;
+            position: relative;
+        }
+    }
+
+    .awssld__controls button span {
+        color: rgb(0, 0, 0);
+    }
+
+    .awssld__bullets {
+        display: none;
+    }
+}

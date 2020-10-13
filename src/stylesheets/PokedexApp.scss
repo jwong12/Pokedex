@@ -3,6 +3,10 @@
     display: flex;
     justify-content: center;
 
+    h1 {
+        color: #525252;
+    }
+
     #search-bar {
         height: 28px;
         width: 30%;
@@ -15,7 +19,8 @@
         width: 50px;
         background-color: white;
         border: solid 1px gray;
-
+        cursor: pointer;
+        
         #search-button {
             padding: 3px;
             height: 28px;

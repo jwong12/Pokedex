@@ -1,46 +1,60 @@
 import React from 'react';
+import PokeCard from './Card';
 import '../stylesheets/PokeCards.scss';
 
 class PokeCards extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokeData: [],
-      cards: []
-    };
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			pokeData: [],
+			cards: []
+		};
+	}
 
-  componentDidMount() {
-    const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=5';
+	componentDidMount() {
+		this.fetchPokemonNames();
+	}
 
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => this.setState({pokeData: data.results}))
-      .then(() => {
-        const { pokeData } = this.state;
+	fetchPokemonNames() {
+		const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=' + Math.floor(Math.random() * 500) +'&limit=10';
+		fetch(apiUrl)
+			.then((response) => response.json())
+			.then((data) => this.setState({pokeData: data.results}))
+			.then(() => {
+				const { pokeData } = this.state;
 
-        for (let item of pokeData) {
-          fetch('https://pokeapi.co/api/v2/pokemon/' + item.name)
-          .then((response) => response.json())
-          .then((data) => {
-            const { cards } = this.state;
-            const copyArray = [...cards];
-            copyArray.push(data);
-            this.setState({ cards: copyArray })
-          })
-          .catch((err) => console.log(err));
-        }
-      })
-      .catch((err) => console.log(err));
-  }
+				for (let item of pokeData) {
+					this.fetchPokemonDetails(item.name);
+				}
+			})
+			.catch((err) => console.log(err));
+	}
 
-  render() {
-    return (
-      <div id="body-content">
-        
-      </div>
-    );
-  }
+	fetchPokemonDetails(name) {
+		fetch('https://pokeapi.co/api/v2/pokemon/' + name)
+			.then((response) => response.json())
+			.then((data) => {
+				const { cards } = this.state;
+				const pokemonArray = [...cards];
+				pokemonArray.push(data);
+				this.setState({ cards: pokemonArray })
+			})
+			.catch((err) => console.log(err));
+	}
+
+	render() {
+		return (
+			<div id="body-content">
+				<ul>
+					{this.state.cards.map((pokemon) => 
+						<li key={pokemon.id}>
+							<PokeCard {...pokemon} />
+						</li>
+					)}
+				</ul>
+			</div>
+		);
+	}
 }
 
 export default PokeCards;
