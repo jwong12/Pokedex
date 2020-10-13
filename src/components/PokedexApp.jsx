@@ -8,10 +8,14 @@ class PokedexApp extends React.Component {
 		super(props);
 		this.state = {
 			pokeData: [],
+			pokeNames: [],
 			cards: [],
 			text: '',
 		};
+
 		this.handleTextChange = this.handleTextChange.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+		this.handleSearchClick = this.handleSearchClick.bind(this);
 	}
 
 	componentDidMount() {
@@ -19,18 +23,36 @@ class PokedexApp extends React.Component {
 	}
 
 	fetchPokemonNames() {
-		const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?offset=' + Math.floor(Math.random() * 500) +'&limit=10';
+		const apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1050';
 		fetch(apiUrl)
 			.then((response) => response.json())
-			.then((data) => this.setState({pokeData: data.results}))
+			.then((data) => this.setState({ pokeData: data.results }))
 			.then(() => {
 				const { pokeData } = this.state;
+				const pokeNames = [];
 
 				for (let item of pokeData) {
-					this.fetchPokemonDetails(item.name);
+					pokeNames.push(item.name);
 				}
+				this.setState({ pokeNames });
 			})
+			.then(() => this.fetchRandomPokemons())
 			.catch((err) => console.log(err));
+	}
+
+	fetchRandomPokemons() {
+		const { pokeNames, cards } = this.state;
+		const pokemonCards = [];
+		console.log(pokeNames)
+		for (let i = 0; i < 10; i++) {
+			fetch('https://pokeapi.co/api/v2/pokemon/' + pokeNames[Math.floor(Math.random() * pokeNames.length)])
+				.then((response) => response.json())
+				.then((data) => {					
+					pokemonCards.push(data);
+					this.setState({ cards: pokemonCards });
+				})
+				.catch((err) => console.log(err));
+		}
 	}
 
 	fetchPokemonDetails(name) {
@@ -38,9 +60,9 @@ class PokedexApp extends React.Component {
 			.then((response) => response.json())
 			.then((data) => {
 				const { cards } = this.state;
-				const pokemonArray = [...cards];
-				pokemonArray.push(data);
-				this.setState({ cards: pokemonArray })
+				const pokemonCards = [];
+				pokemonCards.push(data);
+				this.setState({ cards: pokemonCards });
 			})
 			.catch((err) => console.log(err));
 	}
@@ -48,6 +70,23 @@ class PokedexApp extends React.Component {
 	handleTextChange(e) {
 		const value = e.target.value;
 		this.setState(() => ({ text: value }));
+	}
+
+	handleKeyPress(e) {
+		if(e.key === 'Enter'){
+			this.handleSearchClick();
+		}
+	}
+
+	handleSearchClick() {
+		const { text } = this.state;
+
+		if (text.trim() === "") {
+			this.fetchRandomPokemons();
+		} else {
+			console.log(text.toLowerCase().trim()); //
+			this.fetchPokemonDetails(text.toLowerCase().trim(), false);
+		}
 	}
 
 	render() {
@@ -66,11 +105,16 @@ class PokedexApp extends React.Component {
 						type="text" 
 						value={this.state.text}
 						onChange={this.handleTextChange}
+						onKeyPress={this.handleKeyPress}
 						id="search-bar" 
 						placeholder="Search pokemon..."
 					/>
 					<div id="button-wrapper">
-						<img src="./images/search.svg" id="search-button" alt="Search icon"/>
+						<img 
+							src="./images/search.svg" 
+							onClick={this.handleSearchClick}
+							id="search-button" 
+							alt="Search icon"/>
 					</div>
 				</div><br/>
 				<PokeCards pokeCards={this.state.cards} />
