@@ -3,10 +3,6 @@ import PokeCard from './Card';
 import '../stylesheets/PokeCards.scss';
 
 class PokeCards extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<div id="body-content">
