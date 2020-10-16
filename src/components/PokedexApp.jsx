@@ -43,6 +43,7 @@ class PokedexApp extends React.Component {
 				for (let item of pokeData) {
 					pokeNames.push(item.name);
 				}
+				pokeNames.sort();
 				this.setState({ pokeNames });
 			})
 			.then(() => this.fetchRandomPokemons())
@@ -84,7 +85,7 @@ class PokedexApp extends React.Component {
         
 		if(value.length > 0) {
 			const regex = new RegExp(`^${value}`, 'i');
-			suggestions = this.state.pokeNames.sort().filter(v => regex.test(v));
+			suggestions = this.state.pokeNames.filter(v => regex.test(v));
 
 			// The number of random pokemons displayed is set to 10
 			suggestions = suggestions.slice(0,10); 
