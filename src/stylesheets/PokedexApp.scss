@@ -1,4 +1,9 @@
 
+#pokemon-logo {
+    width: 450px;
+	padding: 20px 0;
+}
+
 h1 {
     color: #525252;
 }
@@ -66,5 +71,17 @@ h1 {
         li:last-of-type {
             border-radius: 0 0 5px 5px;
         }
+    }
+}
+
+@media screen and (max-width: 496px) {
+    #pokemon-logo {
+        width: 90%;
+        padding: 15px 0 0;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin: 15px 0 20px;
     }
 }

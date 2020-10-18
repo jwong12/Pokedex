@@ -1,6 +1,5 @@
 import React from 'react';
 import PokeCards from './PokeCards';
-import { css } from 'emotion';
 import '../stylesheets/PokedexApp.scss';
 
 class PokedexApp extends React.Component {
@@ -144,11 +143,9 @@ class PokedexApp extends React.Component {
 			<div>
 				<img 
 					src="./images/pokemon-banner.svg" 
-					alt="Pokemon banner"
-					className={css`
-					width: 450px;
-					padding: 20px 0;
-				`}/><br/>
+					alt="Pokemon logo"
+					id="pokemon-logo"
+				/><br/>
 				<h1>Pokedex App</h1>
 				<div id="search-wrapper" ref={this.wrapperRef} >
 					<div id="search-container">
